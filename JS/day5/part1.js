@@ -11,8 +11,7 @@ const instructions = parseInstructions(file.slice(separationIndex+1,file.length)
 
 const movedCrates = executeInstructions(instructions, crates)
 
-console.log(movedCrates)
-
 const topCrates = getTopCrates(movedCrates);
 
+console.log(movedCrates)
 console.log(topCrates);
