@@ -1,38 +1,33 @@
 const UPPER_CASE_ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const LOWER_CASE_ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
 
+const UPPER_CASE_REGEX = /[A-Z]/;
+const LOWER_CASE_REGEX = /[a-z]/;
+
 const lowerCasePriority = (lowerCaseChar)=>{
-    let lowerCasePriorities = {};
-    for (let index = 0; index<LOWER_CASE_ALPHABET.length; index++){
-        lowerCasePriorities[LOWER_CASE_ALPHABET[index]] = index+1; 
-    }
-    return lowerCasePriorities[lowerCaseChar];
+    return LOWER_CASE_ALPHABET.indexOf(lowerCaseChar)+1;
 };
 
 const upperCasePriority = (upperCaseChar)=>{
-    let upperCasePriorities = {};
-    for (let index = 0; index<UPPER_CASE_ALPHABET.length; index++){
-        upperCasePriorities[UPPER_CASE_ALPHABET[index]] = index+27; 
-    }
-    return upperCasePriorities[upperCaseChar];
+    return UPPER_CASE_ALPHABET.indexOf(upperCaseChar)+27;
 };
 
 const getRepeatedChar = (str1, str2)=>{
     let isRepeated = false;
-    for (let i = 0; i<str1.length; i++){
-        isRepeated = str2.includes(str1[i]);
+    for (let char of str1){
+        isRepeated = str2.includes(char);
         if (isRepeated){
-            return str1[i]
+            return char
         }
     }
 };
 
 const getBadge = (str1, str2, str3)=>{
     let isRepeated = false;
-    for (let i = 0; i<str1.length; i++){
-        isRepeated = str2.includes(str1[i]) && str3.includes(str1[i]);
+    for (let char of str1){
+        isRepeated = str2.includes(char) && str3.includes(char);
         if (isRepeated){
-            return str1[i]
+            return char
         }
     }
 };

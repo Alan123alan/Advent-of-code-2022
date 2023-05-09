@@ -1,7 +1,7 @@
 const fs = require("fs");
 const {UPPER_CASE_ALPHABET, LOWER_CASE_ALPHABET, lowerCasePriority, upperCasePriority, getRepeatedChar} = require("./helpers");
 
-const rucksacks = fs.readFileSync("./js/day3/sample.txt", {encoding:"utf-8"}).split("\r\n");
+const rucksacks = fs.readFileSync("./js/day3/input.txt", {encoding:"utf-8"}).split("\r\n");
 const rucksacksWithCompartments = rucksacks
     .map(rucksack=>{
         const half = rucksack.length/2;
