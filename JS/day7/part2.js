@@ -1,11 +1,12 @@
 const fs = require("fs");
-const {cdRegex, cdOps, fileRegex, dirRegex} = require("./helpers");
+const {cdOps, fileRegex, dirRegex} = require("./helpers")
 
-const terminalOutput = fs.readFileSync("./js/day7/input.txt",{encoding:"utf-8"}).split("\r\n");
+const terminalOutput = fs.readFileSync("./js/day7/input.txt", {encoding:"utf-8"}).split("\r\n");
+
+let cwd = "";
 let files = [];
 let dirs = [];
 let paths = [];
-let cwd = "";
 const diskSpace = 70000000;
 for(const line of terminalOutput){
     const [marker, command, argument] = line.split(" ");
@@ -23,16 +24,23 @@ for(const line of terminalOutput){
         dirs.push({cwd, type, name});
     }
 }
-let total=0;
+let rootDirTotal = files
+.filter(file=>file.cwd.includes("root"))
+.reduce((acc, curr)=>acc+curr.size,0);
+const unusedSpace = diskSpace-rootDirTotal;
+const requiredSpace = 30000000-unusedSpace 
+console.log("root dir total",rootDirTotal)
+console.log("unused space", unusedSpace)
+console.log("required space", requiredSpace)
+let pathsToRemove = [];
 for(let path of paths){
     let dirTotal = files
     .filter(file=>file.cwd.includes(path))
     .reduce((acc, curr)=>{
         return acc+curr.size
     }, 0);
-
-    if(dirTotal <= 100000){
-        total += dirTotal
+    if(dirTotal>=requiredSpace){
+        pathsToRemove.push(dirTotal)
     }
 }
-console.log(total)
+console.log(pathsToRemove.sort((a,b)=>a-b)[0])

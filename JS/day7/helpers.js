@@ -19,9 +19,9 @@ const isRootDirRegex = /[$] cd \//;
 const cdOps = (cdCommand="")=>{
     const [marker, command, argument] = cdCommand.split(" ")
     if(navigateIntoDirRegex.test(cdCommand)){
-        console.log(cdCommand, cdCommand.indexOf("/"))
+        // console.log(cdCommand, cdCommand.indexOf("/"))
         if(argument == "/"){
-            console.log("in root")
+            // console.log("in root")
             cwd = "root"
             return cwd
         }
