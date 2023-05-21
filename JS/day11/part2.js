@@ -1,9 +1,9 @@
 const fs = require("fs");
 
-function monkeyExchange(throwingMonkey, catchingMonkeys){
+function monkeyExchange(throwingMonkey, catchingMonkeys, commonModulo){
     for(const item of throwingMonkey["Starting items"]){
-        const worryLevel = Math.floor(eval(throwingMonkey.Operation().replace("item", item))/3);
-        const condition = worryLevel%throwingMonkey.Test==0
+        const worryLevel = eval(throwingMonkey.Operation().replace("item", item))%commonModulo;
+        const condition = worryLevel==0 || worryLevel%throwingMonkey.Test==0;
         // console.log(worryLevel)
         catchingMonkeys[throwingMonkey[condition]]["Starting items"] = [...catchingMonkeys[throwingMonkey[condition]]["Starting items"], worryLevel]
     }
@@ -51,13 +51,18 @@ const monkeys = fs.readFileSync("./js/day11/input.txt", {encoding:"utf-8"})
         return monkey
 });
 
-// console.log(monkeys)    
+
+const commonModulo = monkeys.reduce((acc,monkey)=>{
+    console.log(monkey.Test);
+    return monkey.Test*acc
+},1)
+console.log(commonModulo)    
 // console.log(monkeys.length)    
 
-const rounds = 20;
+const rounds = 10000;
 for(let i=1; i<=rounds; i++){
     for(const monkey of monkeys){
-        monkeyExchange(monkey, monkeys)
+        monkeyExchange(monkey, monkeys, commonModulo)
     }
 }
 
